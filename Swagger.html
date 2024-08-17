@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swagger UI Themed Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #32329f;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-bar input {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .api-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .api-section h2 {
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .api-endpoint {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+
+        .api-endpoint.expanded {
+            background-color: #e6f7ff;
+        }
+
+        .method {
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 4px;
+            color: white;
+            margin-right: 15px;
+            text-align: center;
+            width: 60px;
+        }
+
+        .method.get {
+            background-color: #61affe;
+        }
+
+        .method.post {
+            background-color: #49cc90;
+        }
+
+        .method.put {
+            background-color: #fca130;
+        }
+
+        .method.delete {
+            background-color: #f93e3e;
+        }
+
+        .endpoint {
+            font-size: 16px;
+            color: #666;
+            flex: 1;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #999;
+            display: none;
+            padding-top: 10px;
+        }
+
+        .api-endpoint.expanded .description {
+            display: block;
+        }
+
+        footer {
+            background-color: #32329f;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Swagger UI</div>
+    </header>
+
+    <div class="container">
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search API endpoints..." onkeyup="filterEndpoints()">
+        </div>
+
+        <section class="api-section">
+            <h2>API Documentation</h2>
+
+            <div class="api-endpoint">
+                <div class="method get">GET</div>
+                <div class="endpoint">/api/v1/resource</div>
+                <div class="description">Fetch all resources</div>
+            </div>
+
+            <div class="api-endpoint">
+                <div class="method post">POST</div>
+                <div class="endpoint">/api/v1/resource</div>
+                <div class="description">Create a new resource</div>
+            </div>
+
+            <div class="api-endpoint">
+                <div class="method put">PUT</div>
+                <div class="endpoint">/api/v1/resource/{id}</div>
+                <div class="description">Update a resource by ID</div>
+            </div>
+
+            <div class="api-endpoint">
+                <div class="method delete">DELETE</div>
+                <div class="endpoint">/api/v1/resource/{id}</div>
+                <div class="description">Delete a resource by ID</div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>Swagger UI Theme Example &copy; 2024</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const apiEndpoints = document.querySelectorAll('.api-endpoint');
+
+            apiEndpoints.forEach(endpoint => {
+                endpoint.addEventListener('click', function() {
+                    this.classList.toggle('expanded');
+                });
+            });
+        });
+
+        function filterEndpoints() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const apiEndpoints = document.querySelectorAll('.api-endpoint');
+
+            apiEndpoints.forEach(endpoint => {
+                const endpointText = endpoint.querySelector('.endpoint').textContent.toLowerCase();
+                const descriptionText = endpoint.querySelector('.description').textContent.toLowerCase();
+                
+                if (endpointText.includes(filter) || descriptionText.includes(filter)) {
+                    endpoint.style.display = "";
+                } else {
+                    endpoint.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
